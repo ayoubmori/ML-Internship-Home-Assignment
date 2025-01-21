@@ -6,3 +6,4 @@ def render_eda():
         "In this section, you are invited to create insightful graphs "
         "about the resume dataset that you were provided."
     )
+    

@@ -1,6 +1,6 @@
 import streamlit as st
 from dashboard.eda import render_eda
-from dashboard.inference import render_interface
+from dashboard.inference import render_inference
 from dashboard.training import render_training
 
 def main():
@@ -14,7 +14,7 @@ def main():
     elif sidebar_options == "Training":
         render_training()
     else:
-        render_interface()
+        render_inference()
         
 if __name__ == "__main__":
     main()

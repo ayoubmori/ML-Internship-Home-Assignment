@@ -1,7 +1,7 @@
 import streamlit as st
 from data_ml_assignment.constants import LABELS_MAP
 from dashboard.dashboard_utils import getSampleText,SampleRequest
-def render_interface():
+def render_inference():
     st.header("Resume Inference")
     st.info(
         "This section simplifies the inference process. "

@@ -1,63 +1,78 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 from sklearn.model_selection import train_test_split
-
-from data_ml_assignment.constants import (
-    RAW_DATASET_PATH,
-    PROCESSED_DATASET_PATH,
-    MODELS_PATH,
-    REPORTS_PATH,
-    LABELS_MAP,
-)
-from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
-from data_ml_assignment.utils.plot_utils import PlotUtils
-
+from xgboost import XGBClassifier
+import joblib
+from pathlib import Path
+from data_ml_assignment.constants import MODELS_PATH, REPORTS_PATH, LABELS_MAP
 
 class TrainingPipeline:
-    def __init__(self):
-        df = pd.read_csv(PROCESSED_DATASET_PATH)
-
-        text = df["resume"]
-        y = df["label"]
-
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(
-            text, y, test_size=0.2, random_state=0
+            X, y, test_size=0.2, random_state=42
         )
-
-        self.model = None
+        self.model = XGBClassifier(random_state=42)  # Initialize the model here
 
     def train(self, serialize: bool = True, model_name: str = "model"):
-        self.model = NaiveBayesModel()
+        """
+        Train the XGBoost model and optionally save it.
+        """
         self.model.fit(self.x_train, self.y_train)
 
-        model_path = MODELS_PATH / f"{model_name}.joblib"
         if serialize:
-            self.model.save(model_path)
+            model_path = MODELS_PATH / f"{model_name}.joblib"
+            joblib.dump(self.model, model_path)
 
-    def get_model_perfomance(self) -> tuple:
+    def get_model_performance(self) -> tuple:
+        """
+        Evaluate the model and return accuracy and F1 score.
+        """
         predictions = self.model.predict(self.x_test)
-        return accuracy_score(self.y_test, predictions), f1_score(
-            self.y_test, predictions, average="weighted"
-        )
+        accuracy = accuracy_score(self.y_test, predictions)
+        f1 = f1_score(self.y_test, predictions, average="weighted")
+        return accuracy, f1
 
     def render_confusion_matrix(self, plot_name: str = "cm_plot"):
+        """
+        Render and save the confusion matrix.
+        """
         predictions = self.model.predict(self.x_test)
         cm = confusion_matrix(self.y_test, predictions)
         plt.rcParams["figure.figsize"] = (14, 10)
 
-        PlotUtils.plot_confusion_matrix(
-            cm, classes=list(LABELS_MAP.values()), title="Naive Bayes"
-        )
+        self.plot_confusion_matrix(cm, classes=list(LABELS_MAP.values()), title="XGBoost")
 
         plot_path = REPORTS_PATH / f"{plot_name}.png"
         plt.savefig(plot_path, bbox_inches="tight")
         plt.show()
 
+    @staticmethod
+    def plot_confusion_matrix(cm, classes, title):
+        """
+        Helper function to plot the confusion matrix.
+        """
+        import itertools
+        import numpy as np
 
-if __name__ == "__main__":
-    tp = TrainingPipeline()
-    tp.train(serialize=True)
-    accuracy, f1_score = tp.get_model_perfomance()
-    tp.render_confusion_matrix()
-    print(f"ACCURACY = {accuracy}, F1 SCORE = {f1_score}")
+        plt.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
+        plt.title(title)
+        plt.colorbar()
+        tick_marks = np.arange(len(classes))
+        plt.xticks(tick_marks, classes, rotation=45)
+        plt.yticks(tick_marks, classes)
+
+        thresh = cm.max() / 2.0
+        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+            plt.text(
+                j,
+                i,
+                cm[i, j],
+                horizontalalignment="center",
+                color="white" if cm[i, j] > thresh else "black",
+            )
+
+        plt.tight_layout()
+        plt.ylabel("True label")
+        plt.xlabel("Predicted label")

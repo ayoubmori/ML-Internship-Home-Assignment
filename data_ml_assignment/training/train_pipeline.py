@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 
 from data_ml_assignment.constants import (
     RAW_DATASET_PATH,
+    PROCESSED_DATASET_PATH,
     MODELS_PATH,
     REPORTS_PATH,
     LABELS_MAP,
@@ -15,7 +16,7 @@ from data_ml_assignment.utils.plot_utils import PlotUtils
 
 class TrainingPipeline:
     def __init__(self):
-        df = pd.read_csv(RAW_DATASET_PATH)
+        df = pd.read_csv(PROCESSED_DATASET_PATH)
 
         text = df["resume"]
         y = df["label"]

@@ -1,0 +1,50 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Dependency management
+*.lock
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# IDE settings
+.vscode/
+.idea/
+
+# Logs and debug files
+*.log
+*.out
+*.err
+*.pytest_cache/
+
+# Configuration files
+*.env
+*.ini
+*.cfg
+*.json
+*.toml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Cache files
+*.cache
+*.pkl
+*.h5
+*.db
+
+# Test results
+coverage/
+*.coverage
+*.cover
+.nox/
+.tox/

@@ -1,12 +1,7 @@
-import uvicorn
+# main.py
 
-from data_ml_assignment.api.server import server
+import uvicorn
+from data_ml_assignment.api.server import server  # Assuming server is an instance of FastAPI
 
 if __name__ == "__main__":
-    serving_app = server()
-    uvicorn.run(
-        serving_app,
-        host="localhost",
-        port=9000,
-        log_level="info",
-    )
+    uvicorn.run(server, host="localhost", port=9000, log_level="info")

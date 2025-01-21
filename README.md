@@ -151,3 +151,109 @@ Hints: Use `pytest` for your unit tests as well as `mocks` for external services
 
 [This guide](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) provides detailed insights into writing better commit messages, branching strategies, and overall Git workflows.
 
+
+```
+ML-Internship-Home-Assignment
+├─ api.log
+├─ api_pid.txt
+├─ dashboard.py
+├─ data
+│  ├─ processed
+│  └─ raw
+│     └─ resume.csv
+├─ data_ml_assignment
+│  ├─ api
+│  │  ├─ constants.py
+│  │  ├─ inference_route.py
+│  │  ├─ main.py
+│  │  ├─ schemas.py
+│  │  ├─ server.py
+│  │  ├─ __init__.py
+│  │  └─ __pycache__
+│  │     ├─ constants.cpython-311.pyc
+│  │     ├─ constants.cpython-312.pyc
+│  │     ├─ inference_route.cpython-311.pyc
+│  │     ├─ inference_route.cpython-312.pyc
+│  │     ├─ main.cpython-312.pyc
+│  │     ├─ schemas.cpython-311.pyc
+│  │     ├─ schemas.cpython-312.pyc
+│  │     ├─ server.cpython-311.pyc
+│  │     ├─ server.cpython-312.pyc
+│  │     ├─ __init__.cpython-311.pyc
+│  │     └─ __init__.cpython-312.pyc
+│  ├─ constants.py
+│  ├─ models
+│  │  ├─ base_model.py
+│  │  ├─ estimator_interface.py
+│  │  ├─ naive_bayes_model.py
+│  │  ├─ svc_model.py
+│  │  ├─ xgbc_model.py
+│  │  ├─ __init__.py
+│  │  └─ __pycache__
+│  │     ├─ base_model.cpython-311.pyc
+│  │     ├─ base_model.cpython-312.pyc
+│  │     ├─ estimator_interface.cpython-311.pyc
+│  │     ├─ estimator_interface.cpython-312.pyc
+│  │     ├─ naive_bayes_model.cpython-311.pyc
+│  │     ├─ naive_bayes_model.cpython-312.pyc
+│  │     ├─ __init__.cpython-311.pyc
+│  │     └─ __init__.cpython-312.pyc
+│  ├─ training
+│  │  ├─ train_pipeline.py
+│  │  ├─ __init__.py
+│  │  └─ __pycache__
+│  │     ├─ train_pipeline.cpython-311.pyc
+│  │     ├─ train_pipeline.cpython-312.pyc
+│  │     ├─ __init__.cpython-311.pyc
+│  │     └─ __init__.cpython-312.pyc
+│  ├─ utils
+│  │  ├─ plot_utils.py
+│  │  ├─ __init__.py
+│  │  └─ __pycache__
+│  │     ├─ plot_utils.cpython-311.pyc
+│  │     ├─ plot_utils.cpython-312.pyc
+│  │     ├─ __init__.cpython-311.pyc
+│  │     └─ __init__.cpython-312.pyc
+│  ├─ __init__.py
+│  └─ __pycache__
+│     ├─ constants.cpython-311.pyc
+│     ├─ constants.cpython-312.pyc
+│     ├─ __init__.cpython-311.pyc
+│     └─ __init__.cpython-312.pyc
+├─ models
+│  ├─ .joblib
+│  └─ naive_bayes_pipeline.joblib
+├─ pyproject.toml
+├─ README.md
+├─ reports
+│  └─ cm_plot.png
+├─ run.sh
+├─ samples
+│  ├─ BUSINESS_ANALYST.txt
+│  ├─ BUSINESS_INTELLIGENCE.txt
+│  ├─ DOT_NET_DEVELOPER.txt
+│  ├─ HELP_DESK_AND_SUPPORT.txt
+│  ├─ INFORMATICA_DEVELOPER.txt
+│  ├─ JAVA_DEVELOPER.txt
+│  ├─ NETWORK_AND_SYSTEM_ADMINISTRATOR.txt
+│  ├─ ORACLE_DBA.txt
+│  ├─ PROJECT_MANAGER.txt
+│  ├─ QUALITY_ASSURANCE.txt
+│  ├─ SAP.txt
+│  ├─ SHAREPOINT_DEVELOPER.txt
+│  ├─ SQL_DEVELOPER.txt
+│  └─ WEB_DEVELOPER.txt
+├─ static
+│  ├─ eda.png
+│  ├─ inference.png
+│  ├─ inference_done.png
+│  ├─ training.png
+│  ├─ training_current.png
+│  └─ training_result.png
+├─ streamlit.log
+├─ streamlit_pid.txt
+├─ tests
+│  └─ __init__.py
+└─ __init__.py
+
+```

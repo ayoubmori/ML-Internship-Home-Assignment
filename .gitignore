@@ -48,3 +48,7 @@ coverage/
 *.cover
 .nox/
 .tox/
+
+*.log
+api_pid.txt
+streamlit_pid.txt

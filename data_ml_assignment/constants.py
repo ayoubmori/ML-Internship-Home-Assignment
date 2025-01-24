@@ -10,6 +10,8 @@ PROCESSED_DATA_PATH = PARENT_PATH / "processed/"
 
 MODELS_PATH = PARENT_PATH / "models/"
 NAIVE_BAYES_PIPELINE_PATH = MODELS_PATH / "naive_bayes_pipeline.joblib"
+TFIDF_VECTORIZER_PATH = MODELS_PATH / "tfidf_vectorizer.joblib"
+NEW_MODEL_PATH = MODELS_PATH / "xgboost_model.joblib"  # XGBoost model path
 REPORTS_PATH = PARENT_PATH / "reports/"
 CM_PLOT_PATH = REPORTS_PATH / "cm_plot.png"
 

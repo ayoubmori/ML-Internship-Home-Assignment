@@ -1,18 +1,16 @@
 import requests
 from data_ml_assignment.constants import SAMPLES_PATH
 
-
 def getSampleText(sample):
     sample_file = "_".join(sample.upper().split()) + ".txt"
     with open(SAMPLES_PATH / sample_file, encoding="utf-8") as file:
         return file.read()
 
-
 def SampleRequest(sample_text):
     return requests.post(
-        "http://localhost:9000/api/inference", json={"text": sample_text}
+        "http://localhost:9000/api/inference",  # Ensure the port matches the API server
+        json={"text": sample_text}
     )
-
 
 from data_ml_assignment.processing.processing_data import ProcessingData
 from data_ml_assignment.feature_engineering.feature_engineering_data import FeatureEngineeringData

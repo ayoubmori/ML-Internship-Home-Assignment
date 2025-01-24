@@ -13,21 +13,28 @@ class TrainingPipeline:
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(
             X, y, test_size=0.2, random_state=42
         )
-        self.model = XGBClassifier(random_state=42)  # Initialize the model here
+        self.model = XGBClassifier(
+            n_estimators=300,  # Increased for better performance
+            learning_rate=0.1,
+            max_depth=5,
+            random_state=42
+        )
 
-    def train(self, serialize: bool = True, model_name: str = "model"):
-        """
-        Train the XGBoost model and optionally save it.
-        """
+    def train(self, model_name="xgboost_model"):
         self.model.fit(self.x_train, self.y_train)
+        joblib.dump(self.model, MODELS_PATH / f"{model_name}.joblib")
+        
+    def evaluate(self):
+        preds = self.model.predict(self.x_test)
+        return accuracy_score(self.y_test, preds), f1_score(self.y_test, preds, average="weighted")
 
-        if serialize:
-            model_path = MODELS_PATH / f"{model_name}.joblib"
-            joblib.dump(self.model, model_path)
 
     def get_model_performance(self) -> tuple:
         """
         Evaluate the model and return accuracy and F1 score.
+
+        Returns:
+            tuple: Accuracy and F1 score.
         """
         predictions = self.model.predict(self.x_test)
         accuracy = accuracy_score(self.y_test, predictions)
@@ -37,6 +44,9 @@ class TrainingPipeline:
     def render_confusion_matrix(self, plot_name: str = "cm_plot"):
         """
         Render and save the confusion matrix.
+
+        Args:
+            plot_name (str): Name of the confusion matrix plot file.
         """
         predictions = self.model.predict(self.x_test)
         cm = confusion_matrix(self.y_test, predictions)
@@ -44,6 +54,8 @@ class TrainingPipeline:
 
         self.plot_confusion_matrix(cm, classes=list(LABELS_MAP.values()), title="XGBoost")
 
+        # Ensure the REPORTS_PATH directory exists
+        REPORTS_PATH.mkdir(parents=True, exist_ok=True)
         plot_path = REPORTS_PATH / f"{plot_name}.png"
         plt.savefig(plot_path, bbox_inches="tight")
         plt.show()
@@ -52,6 +64,11 @@ class TrainingPipeline:
     def plot_confusion_matrix(cm, classes, title):
         """
         Helper function to plot the confusion matrix.
+
+        Args:
+            cm (numpy.ndarray): Confusion matrix.
+            classes (list): List of class labels.
+            title (str): Title of the plot.
         """
         import itertools
         import numpy as np

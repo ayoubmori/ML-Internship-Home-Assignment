@@ -46,7 +46,7 @@ fi
 
 if ! test -f "$STREAMLIT_PID_FILE"; then
     echo "Running Streamlit Dashboard..."
-    nohup poetry run python -W ignore -m streamlit run --server.port 8001 dashboard.py > streamlit.log 2>&1 &
+    nohup poetry run python -W ignore -m streamlit run --server.port 8000 dashboard.py > streamlit.log 2>&1 &
     echo $! > "$STREAMLIT_PID_FILE"
     echo "Streamlit dashboard started successfully."
 fi

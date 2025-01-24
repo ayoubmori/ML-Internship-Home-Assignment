@@ -5,8 +5,10 @@ from data_ml_assignment.processing.processing_data import ProcessingData
 from data_ml_assignment.feature_engineering.feature_engineering_data import FeatureEngineeringData
 from data_ml_assignment.training.train_pipeline import TrainingPipeline
 
-
 def render_training():
+    """
+    Render the training pipeline interface in the Streamlit app.
+    """
     st.header("Pipeline Training")
     st.info(
         "This pipeline consists of three steps: Processing, Feature Engineering, and Training. "
@@ -31,7 +33,8 @@ def render_training():
         with st.spinner("Performing feature engineering, please wait..."):
             try:
                 fe = FeatureEngineeringData()
-                X, y = fe.transform()
+                fe.fit()  # Fit the TF-IDF vectorizer
+                X, y = fe.transform()  # Transform the data
                 st.session_state["X"] = X
                 st.session_state["y"] = y
                 st.success("Feature engineering completed successfully!")

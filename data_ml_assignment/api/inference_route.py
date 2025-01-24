@@ -1,17 +1,29 @@
-from fastapi import APIRouter
-
+from fastapi import APIRouter, HTTPException
+from data_ml_assignment.models.xgbc_model import XGBCModel
+from data_ml_assignment.constants import NEW_MODEL_PATH
+import joblib
 from data_ml_assignment.api.schemas import Resume
-from data_ml_assignment.models.naive_bayes_model import NaiveBayesModel
-from data_ml_assignment.constants import NAIVE_BAYES_PIPELINE_PATH
+from data_ml_assignment.constants import LABELS_MAP
 
-
-model = NaiveBayesModel()
-model.load(NAIVE_BAYES_PIPELINE_PATH)
 
 inference_router = APIRouter()
 
+model = XGBCModel()
+model.load(NEW_MODEL_PATH)  # Load XGBoost model
 
 @inference_router.post("/inference")
 def run_inference(resume: Resume):
-    prediction = model.predict([resume.text])
-    return prediction.tolist()[0]
+    try:
+        # Perform prediction
+        prediction = model.predict([resume.text])
+
+        # Convert prediction to a Python native type (e.g., int)
+        predicted_label = int(prediction.tolist()[0])
+
+        return {"label": predicted_label}
+    except Exception as e:
+        # Return a 500 Internal Server Error with a descriptive message
+        raise HTTPException(
+            status_code=500,
+            detail=f"Inference failed: {str(e)}"
+        )

@@ -6,14 +6,22 @@ from nltk.stem import WordNetLemmatizer
 from pathlib import Path
 from data_ml_assignment.constants import RAW_DATASET_PATH, PROCESSED_DATASET_PATH
 
+# Ensure the necessary NLTK data is downloaded once
+nltk_data_dir = Path("nltk_data")
+nltk.data.path.append(str(nltk_data_dir))  # Add the directory to NLTK's path
+
+if not (nltk_data_dir / "corpora/stopwords").exists():
+    nltk.download("stopwords", download_dir=nltk_data_dir)
+
+if not (nltk_data_dir / "corpora/wordnet").exists():
+    nltk.download("wordnet", download_dir=nltk_data_dir)
+
+
 class ProcessingData:
     def __init__(self):
         self.df = pd.read_csv(RAW_DATASET_PATH)
 
     def clean_text(self, text):
-        nltk.download("stopwords")
-        nltk.download("wordnet")
-
         lemmatizer = WordNetLemmatizer()
         stop_words = set(stopwords.words("english"))
 
